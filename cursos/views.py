@@ -1,5 +1,6 @@
 #from django.db.models.query import QuerySet
 #from rest_framework import generics, serializers
+from django.db.models.fields import mixins
 from rest_framework import generics, serializers
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
@@ -7,6 +8,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import mixins
 
 
 from .models import Curso, Avaliacao
@@ -65,7 +67,27 @@ class CursoViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+"""
 class AvaliacaoViewSet(viewsets.ModelViewSet):
+    queryset = Avaliacao.objects.all()
+    serializer_class = AvaliacaoSerializer
+"""
+
+
+"""
+É a mesma coisa que o ModelViewSet,só que desta forma eu posso comentar 
+alguma coisa que eu não quero fazer
+"""
+
+
+class AvaliacaoViewSet(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet
+):
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
 
