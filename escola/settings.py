@@ -145,9 +145,17 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication', 
         'rest_framework.authentication.TokenAuthentication', 
     ),
-    'DEFAULT_PERMISSION_CLASSES':(
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2 # Se sobrescrevermos os métodos na view essa configuração é anulada
+    'PAGE_SIZE': 2, # Se sobrescrevermos os métodos na view essa configuração é anulada
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/minute',
+        'user': '10/minute',
+    }
 }
