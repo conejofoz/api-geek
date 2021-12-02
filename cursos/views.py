@@ -15,6 +15,7 @@ from rest_framework import permissions
 
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
+from .permissions import EhSuperUser
 
 
 """
@@ -61,6 +62,7 @@ API V2
 class CursoViewSet(viewsets.ModelViewSet):
     # se sobrepôe a configuração do settings.py somente para essa classe
     permission_classes = (
+        EhSuperUser,
         permissions.DjangoModelPermissions,
 
         )
